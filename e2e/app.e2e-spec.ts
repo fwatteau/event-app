@@ -1,14 +1,14 @@
-import { RepasAppPage } from './app.po';
+import { EventAppPage } from "./app.po";
 
-describe('repas-app App', () => {
-  let page: RepasAppPage;
+describe("event-app App", () => {
+  let page: EventAppPage;
 
   beforeEach(() => {
-    page = new RepasAppPage();
+    page = new EventAppPage();
   });
 
-  it('should display welcome message', () => {
+  it("should display welcome message", () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!!');
+    expect(page.getParagraphText()).toEqual("Welcome to app!!");
   });
 });
