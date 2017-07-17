@@ -1,0 +1,32 @@
+<div class="card" *ngIf="event">
+  <div class="card-block">
+    <h4 class="card-title">{{event.name}}</h4>
+    <h6 class="card-subtitle mb-2 text-muted hidden-xs-down">{{event.date | date:"dd/MM/yy"}}</h6>
+    <p class="card-text" *ngIf="event && event.sales && event.sales.length">Rejoignez les {{event.sales.length}} personnes participant à cet événément.</p>
+    <p class="card-text" *ngIf="!event || !event.sales || !event.sales.length">Soyez le premier à vous inscrire.</p>
+    <accordion *ngIf="!user" class="hidden-xs-down">
+      <accordion-group *ngFor="let choice of event.choices; let i = index">
+        <div accordion-heading>
+          {{choice.name}}
+          <span class="badge badge-default badge-badge-pill float-right m-2" [ngClass]="{'badge-success' : i == 0, 'badge-warning' : i == 1, 'badge-danger' : i == 2}">{{getCount(choice)}}</span>
+        </div>
+        <span [innerHTML]="getUsers(choice)"> </span>
+      </accordion-group>
+    </accordion>
+    <ul *ngIf="user" class="list-group" class="hidden-xs-down">
+      <li *ngFor="let choice of getSale().choices" class="list-group-item justify-content-between">
+        {{choice.name}}
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-2" role="group" aria-label="Liste des choix">
+            <button type="button" class="btn btn-danger" [disabled]="choice.quantity === 0" (click)="removeQuantity(choice)">-</button>
+            <button type="button" class="btn btn-secondary" disabled="disabled">{{choice.quantity}}</button>
+            <button type="button" class="btn btn-success" (click)="addQuantity(choice)">+</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <a href=""  class="btn btn-info hidden-sm-up" target="event-fostt">
+      <i class="fa fa-cutlery" aria-hidden="true"></i> GO !
+    </a>
+  </div>
+</div>
